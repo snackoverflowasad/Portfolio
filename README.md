@@ -1,4 +1,10 @@
+## License
+
+This personal portfolio is licensed under a custom `All Rights Reserved` license.
+See [LICENSE](LICENSE) for full terms.
 <div align="center">
+
+---
 
 **Built with love by [Asad Hussain](https://www.asadhussain.in/)**
 
@@ -7,8 +13,3 @@
 [![Portfolio](https://img.shields.io/badge/Portfolio-asadhussain.in-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://www.asadhussain.in/)
 
 </div>
-
-## License
-
-This personal portfolio is licensed under a custom `All Rights Reserved` license.
-See [LICENSE](LICENSE) for full terms.
