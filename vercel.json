@@ -1,20 +1,6 @@
 {
   "rewrites": [
-    {
-      "source": "/v4/admin/dashboard",
-      "destination": "/admin/pages/AdminDashboardPage.html"
-    },
-    {
-      "source": "/v3/admin/login-page",
-      "destination": "/admin/pages/AdminLoginPage.html"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
