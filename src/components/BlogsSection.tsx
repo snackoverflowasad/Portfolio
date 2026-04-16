@@ -1,42 +1,86 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { getPublicBlogs } from '../api/public'
 
-const blogs = [
-  {
-    title: 'GitHub new space shooter README Step-by-Step Guide',
-    excerpt: 'This step-by-step guide shows how to create a GitHub Space Shooter README using GitHub Actions. By setting up a workflow, you can automatically generate and update a Space Shooter GIF in your repository, making your GitHub profile more interactive and visually engaging.',
-    meta: 'Tutorial · 2 min read',
-    href: 'https://dev.to/snackoverflowwithasad/github-new-space-shooter-readme-step-by-step-guide-2m9b',
-  },
-//   {
-//     title: 'Hey there, do you know me?',
-//     excerpt: 'This blog explores how strategic laziness can make you a better developer. By automating repetitive tasks and building small personal tools, I turned everyday frustrations into learning opportunities, improving my skills while creating practical and fun projects along the way.',
-//     meta: 'Introduction · 1 min read',
-//     href: 'https://dev.to/snackoverflowwithasad/how-being-lazy-made-me-a-better-developer-398h',
-//   },
-  {
-    title: 'How being lazy made me a better developer',
-    excerpt: 'Sometimes laziness leads to creativity. In this blog, I share how avoiding repetitive tasks motivated me to build small projects like a currency converter and fun experimental tools. These simple ideas helped me learn APIs, improve development skills, and turn boring moments into productive learning opportunities.',
-    meta: 'Lazy · 2 min read',
-    href: 'https://dev.to/snackoverflowwithasad/how-being-lazy-made-me-a-better-developer-1cd0',
-  },
-  {
-    title: 'Why NumPy and Pandas are Essential: A Beginner’s Realization in AI/ML',
-    excerpt: 'Starting my AI/ML journey made me realize how important NumPy and Pandas really are. NumPy helps with fast numerical computations, while Pandas makes data cleaning, transformation, and analysis much easier. Together, they form the foundation for building effective machine learning models and working with real-world data.',
-    meta: 'AI/ML · 2 min read',
-    href: 'https://dev.to/snackoverflowwithasad/why-numpy-and-pandas-are-essential-a-beginners-realization-in-aiml-959',
-  },
-]
+type PublicBlogCard = {
+  title: string
+  excerpt: string
+  meta: string
+  href?: string
+}
+
+function isSafeExternalUrl(url?: string) {
+  if (!url) {
+    return false
+  }
+
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
 
 function BlogsSection() {
+  const [blogs, setBlogs] = useState<PublicBlogCard[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState('')
+  const showcaseLimit = 3
+
+  const skeletonCards = Array.from({ length: 3 }, (_, index) => index)
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadBlogs() {
+      try {
+        setIsLoading(true)
+        setLoadError('')
+
+        const data = await getPublicBlogs()
+        if (!isMounted) {
+          return
+        }
+
+        setBlogs(
+          data.map((blog) => ({
+            title: blog.title,
+            excerpt: blog.summary || blog.contentMarkdown || '',
+            meta: [blog.category, blog.tags?.[0] ? `${blog.tags[0]}` : 'Blog']
+              .filter(Boolean)
+              .join(' · '),
+            href: blog.href,
+          })),
+        )
+      } catch (error) {
+        if (isMounted) {
+          setLoadError(error instanceof Error ? error.message : 'Failed to load blogs.')
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    void loadBlogs()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
   return (
     <motion.section
       data-blogs
       className="border-t-2 border-[#111111] px-4 pb-6 pt-6 sm:px-5 lg:px-9 lg:pb-10 lg:pt-[34px]"
       id="blog"
-      initial={{ opacity: 0, y: 34 }}
+      initial={{ opacity: 0, y: 52 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65 }}
-      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.35 }}
     >
       <div className="mx-auto w-full max-w-[1200px]">
         <h2 className="mb-6 font-['Syne'] text-[clamp(26px,7vw,48px)] leading-[1.05] tracking-[-0.03em] sm:mb-[30px]">
@@ -50,8 +94,30 @@ function BlogsSection() {
           </span>
         </h2>
 
+        {loadError ? (
+          <p className="mb-4 border-2 border-[#111111] bg-[#ffd9d9] px-4 py-3 font-['Syne'] text-[13px] text-[#8f1d1d]">
+            {loadError}
+          </p>
+        ) : null}
+
+        {isLoading ? (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            {skeletonCards.map((index) => (
+              <article
+                key={index}
+                className="group border-2 border-[#111111] bg-[#f6f6f3] p-5 shadow-[5px_5px_0_#9f9f9f]"
+              >
+                <div className="mb-3 h-4 w-24 animate-pulse border border-[#111111] bg-[linear-gradient(90deg,#ececec_0%,#fafafa_50%,#ececec_100%)] bg-[length:200%_100%]" />
+                <div className="mb-3 h-10 w-full animate-pulse border border-[#111111] bg-[linear-gradient(90deg,#efefef_0%,#f8f8f8_50%,#efefef_100%)] bg-[length:200%_100%]" />
+                <div className="mb-5 h-24 w-full animate-pulse border border-[#111111] bg-[linear-gradient(90deg,#efefef_0%,#f8f8f8_50%,#efefef_100%)] bg-[length:200%_100%]" />
+                <div className="h-9 w-28 animate-pulse border-2 border-[#111111] bg-[linear-gradient(90deg,#ececec_0%,#fafafa_50%,#ececec_100%)] bg-[length:200%_100%]" />
+              </article>
+            ))}
+          </div>
+        ) : null}
+
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          {blogs.map((blog) => (
+          {blogs.slice(0, showcaseLimit).map((blog) => (
             <article
               key={blog.title}
               className="group border-2 border-[#111111] bg-[#f6f6f3] p-5 shadow-[5px_5px_0_#9f9f9f] transition-all duration-300 hover:-translate-y-1 hover:bg-[#f2f2ea] hover:shadow-[8px_8px_0_#111111]"
@@ -63,15 +129,35 @@ function BlogsSection() {
                 {blog.title}
               </h3>
               <p className="mb-5 text-[16px] leading-[1.45] text-[#3f3f3f]">{blog.excerpt}</p>
-              <a
-                href={blog.href}
-                className="inline-flex items-center gap-2 border-2 border-[#111111] bg-[#111111] px-3 py-1.5 font-['Syne'] text-xs font-bold uppercase tracking-[0.1em] text-white no-underline transition-all duration-200 group-hover:bg-[#9dff00] group-hover:text-[#111111]"
-              >
-                Read More <span aria-hidden="true">↗</span>
-              </a>
+              {isSafeExternalUrl(blog.href) ? (
+                <a
+                  href={blog.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  referrerPolicy="no-referrer"
+                  className="inline-flex items-center gap-2 border-2 border-[#111111] bg-[#111111] px-3 py-1.5 font-['Syne'] text-xs font-bold uppercase tracking-[0.1em] text-white no-underline transition-all duration-200 group-hover:bg-[#9dff00] group-hover:text-[#111111]"
+                >
+                  Read More <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <span className="inline-flex items-center gap-2 border-2 border-[#111111] bg-[#d8d8d8] px-3 py-1.5 font-['Syne'] text-xs font-bold uppercase tracking-[0.1em] text-[#555]">
+                  Link unavailable
+                </span>
+              )}
             </article>
           ))}
         </div>
+
+        {!isLoading && !loadError && blogs.length > showcaseLimit ? (
+          <div className="mt-6 flex justify-center">
+            <Link
+              to="/blogs"
+              className="inline-flex items-center justify-center border-2 border-[#111111] bg-[#9fd5f8] px-4 py-2 font-['Syne'] text-xs font-extrabold uppercase tracking-[0.14em] text-[#111111] no-underline shadow-[3px_3px_0_#111111] transition hover:-translate-y-px"
+            >
+              View More Blogs
+            </Link>
+          </div>
+        ) : null}
       </div>
     </motion.section>
   )
