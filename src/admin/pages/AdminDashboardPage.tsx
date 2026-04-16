@@ -725,7 +725,11 @@ function AdminDashboardPage() {
               </p>
 
               <div className="max-h-[66vh] space-y-2 overflow-y-auto pr-1">
-                {filteredMessages.map((message) => (
+                {isMessagesLoading ? (
+                  <p className="text-sm">Loading messages...</p>
+                ) : null}
+
+                {!isMessagesLoading && filteredMessages.map((message) => (
                   <button
                     key={message.id}
                     type="button"
@@ -751,7 +755,7 @@ function AdminDashboardPage() {
                   </button>
                 ))}
 
-                {filteredMessages.length === 0 ? (
+                {!isMessagesLoading && filteredMessages.length === 0 ? (
                   <p className="text-sm text-[#555]">
                     No messages match this search.
                   </p>
