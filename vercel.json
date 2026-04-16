@@ -5,7 +5,15 @@
       "dest": "/api/$1"
     },
     {
-      "src": "^(?!/api).*$",
+      "src": "^/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": ".*\\.(js|css|png|jpg|jpeg|svg|ico|json)$",
+      "dest": "/$0"
+    },
+    {
+      "src": "/(.*)",
       "dest": "/"
     }
   ]
