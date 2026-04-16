@@ -1,7 +1,7 @@
 ## License
 
 This personal portfolio is licensed under a custom `All Rights Reserved` license.
-See [LICENSE](LICENSE) for full terms.
+See [LICENSE](LICENSE) for full terms and conditions.
 <div align="center">
 
 ---
