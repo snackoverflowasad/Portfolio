@@ -13,7 +13,10 @@ function HeroSection() {
       viewport={{ once: true, amount: 0.25 }}
     >
       <div className="relative z-20 flex w-full flex-col items-center text-center lg:max-w-[560px] lg:items-start lg:text-left lg:pl-16 xl:pl-24 2xl:pl-32">
-        <h1 data-hero-title className="mb-4 mt-2 max-w-[9ch] font-['Syne'] text-[clamp(28px,8vw,72px)] leading-[0.98] tracking-[-0.03em] sm:text-[clamp(32px,7vw,76px)] lg:max-w-[10ch]">
+        <h1
+          data-hero-title
+          className="mb-4 mt-2 max-w-[9ch] font-['Syne'] text-[clamp(28px,8vw,72px)] leading-[0.98] tracking-[-0.03em] sm:text-[clamp(32px,7vw,76px)] lg:max-w-[10ch]"
+        >
           a{" "}
           <span className="relative inline-block px-2 py-1">
             <span className="absolute inset-0 rotate-[-2deg] bg-[#9dff00]/40 [clip-path:polygon(8%_18%,20%_6%,42%_10%,63%_4%,84%_14%,95%_34%,92%_58%,97%_79%,83%_93%,60%_88%,39%_96%,18%_88%,7%_68%,4%_45%)]" />
@@ -78,7 +81,10 @@ function HeroSection() {
             />
           </svg>
         </div>
-        <div data-hero-frame className="relative aspect-square w-full max-w-[300px] border-4 border-[#111111] bg-[#ececef] shadow-[5px_5px_0_#9f9f9f] sm:max-w-[340px] lg:max-w-[360px]">
+        <div
+          data-hero-frame
+          className="relative aspect-square w-full max-w-[300px] border-4 border-[#111111] bg-[#ececef] shadow-[5px_5px_0_#9f9f9f] sm:max-w-[340px] lg:max-w-[360px]"
+        >
           <div
             className="absolute left-1/2 top-[10px] z-[2] flex -translate-x-1/2 gap-[42px]"
             aria-hidden="true"
@@ -103,7 +109,10 @@ function HeroSection() {
             aria-hidden="true"
           />
         </div>
-        <div className="absolute left-[10px] top-[42%] z-[4] grid h-[52px] w-[52px] -translate-y-1/2 place-items-center rounded-full border-[3px] border-[#111111] bg-[#f5d44f] lg:left-[18px] lg:h-[62px] lg:w-[62px]" aria-hidden="true">
+        <div
+          className="absolute left-[10px] top-[42%] z-[4] grid h-[52px] w-[52px] -translate-y-1/2 place-items-center rounded-full border-[3px] border-[#111111] bg-[#f5d44f] lg:left-[18px] lg:h-[62px] lg:w-[62px]"
+          aria-hidden="true"
+        >
           <span className="relative h-6 w-[18px] rounded-[50%_50%_35%_35%] border-2 border-[#0f0f0f] before:absolute before:bottom-[-7px] before:left-1/2 before:h-1 before:w-[10px] before:-translate-x-1/2 before:border-2 before:border-[#0f0f0f] before:border-t-0 before:content-[''] after:absolute after:right-[-7px] after:top-[2px] after:h-[7px] after:w-[7px] after:rotate-[25deg] after:border-l-2 after:border-t-2 after:border-[#0f0f0f] after:content-['']" />
         </div>
       </div>
