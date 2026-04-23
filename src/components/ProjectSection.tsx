@@ -144,12 +144,12 @@ function PortfolioSection() {
                 <div className={`absolute inset-0 ${toneClass[idx % toneClass.length]} opacity-100 transition-opacity duration-300 group-hover:opacity-0`} aria-hidden="true" />
               </div>
               <h3 className="mb-2 mt-3 font-['Syne'] text-[34px]">{project.title}</h3>
-              {/* <p className="m-0 max-w-[28ch] text-[16px] text-[#2f2f2f]">
-                {project.summary || project.description || 'Click to view project details and README summary'}
-              </p> */}
-              <p>
-                Click to view project details
+              <p className="m-0 max-w-[28ch] text-[16px] text-[#2f2f2f]">
+                {project.summary || 'Click to view project details and README summary'}
               </p>
+              {/* <p>
+                Click to view project details
+              </p> */}
               <div data-project-keywords className="mt-3 flex flex-wrap gap-2">
                 {(project.techStack || []).map((word) => (
                   <span
