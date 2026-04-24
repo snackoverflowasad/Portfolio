@@ -9,7 +9,7 @@ const navItems = [
   { label: 'Connect', href: '#connect' },
 ]
 
-const resumeDownloadUrl = 'https://drive.google.com/uc?export=download&id=1YAy7U6be_tgm_0GTsK4Th4OXM7gaWeMj'
+const resumeDownloadUrl = 'https://drive.google.com/file/d/1sB0WBMSeVFoC2y27WhNr7uYwwcENZ2-D/view?usp=drive_link'
 
 function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
