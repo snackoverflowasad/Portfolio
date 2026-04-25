@@ -81,10 +81,10 @@ function PortfolioSection() {
       data-portfolio
       className="border-t-2 border-[#111111] px-4 pb-6 pt-6 sm:px-5 lg:px-9 lg:pb-10 lg:pt-8.5"
       id="projectsection"
-      initial={{ opacity: 0, y: 52 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.35 }}
+      // initial={{ opacity: 0, y: 52 }}
+      // whileInView={{ opacity: 1, y: 0 }}
+      // transition={{ duration: 0.7, ease: "easeOut" }}
+      // viewport={{ once: true, amount: 0.35 }}
     >
       <div className="mx-auto w-full max-w-300">
         <h2 className="mb-6 font-['Syne'] text-[clamp(26px,7vw,48px)] leading-[1.05] tracking-[-0.03em] sm:mb-[30px]">
@@ -143,12 +143,14 @@ function PortfolioSection() {
             >
               <div
                 data-project-image
-                className="relative aspect-16/10 overflow-hidden border-2 border-[#111111]"
+                className="relative h-[220px] sm:h-[280px] overflow-hidden"
               >
                 {project.imageUrl ? (
                   <img
                     src={project.imageUrl}
                     alt={`${project.title} preview`}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : null}
