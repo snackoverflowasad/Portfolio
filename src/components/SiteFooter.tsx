@@ -31,7 +31,7 @@ function SiteFooter() {
         <a
           aria-label="GitHub"
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111111] transition hover:-translate-y-0.5 hover:bg-white"
-          href="#"
+          href="https://github.com/snackoverflowasad"
         >
           <svg
             aria-hidden="true"
