@@ -141,7 +141,7 @@ function PortfolioSection() {
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : null}
-                <div className={`absolute inset-0 ${toneClass[idx % toneClass.length]} opacity-100 transition-opacity duration-300 group-hover:opacity-0`} aria-hidden="true" />
+                <div className={`absolute inset-0 ${toneClass[idx % toneClass.length]} opacity-0 md:opacity-100 md:group-hover:opacity-0 transition-opacity duration-300`} aria-hidden="true"/>
               </div>
               <h3 className="mb-2 mt-3 font-['Syne'] text-[34px]">{project.title}</h3>
               <p className="m-0 max-w-[28ch] text-[16px] text-[#2f2f2f]">
