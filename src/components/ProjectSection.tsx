@@ -108,21 +108,58 @@ function PortfolioSection() {
                 key={index}
                 className="overflow-hidden border-2 border-[#111111] bg-[#f6f6f3] p-3.5 shadow-[5px_5px_0_#9f9f9f]"
               >
-                <div className="aspect-16/10 animate-pulse border-2 border-[#111111] bg-[linear-gradient(90deg,#efefef_0%,#f8f8f8_50%,#efefef_100%)] bg-size-[200%_100%]" />
-                <div className="mt-3 h-8 w-2/3 animate-pulse border border-[#111111] bg-[linear-gradient(90deg,#ececec_0%,#fafafa_50%,#ececec_100%)] bg-size-[200%_100%]" />
-                <div className="mt-3 h-5 w-full animate-pulse border border-[#111111] bg-[linear-gradient(90deg,#efefef_0%,#f8f8f8_50%,#efefef_100%)] bg-size-[200%_100%]" />
+                <div className="aspect-16/10 animate-pulse border-2 border-[#111111] bg-[#efefef]" />
+                <div className="mt-3 h-8 w-2/3 animate-pulse border border-[#111111] bg-[#ececec]" />
+                <div className="mt-3 h-5 w-full animate-pulse border border-[#111111] bg-[#efefef]" />
                 <div className="mt-3 flex flex-wrap gap-2">
                   {Array.from({ length: 4 }, (_, keywordIndex) => (
-                    <span
-                      key={keywordIndex}
-                      className="h-7 w-20 animate-pulse border-2 border-[#111111] bg-[linear-gradient(90deg,#ececec_0%,#fafafa_50%,#ececec_100%)] bg-size-[200%_100%]"
-                    />
+                    <span key={keywordIndex} className="h-7 w-20 animate-pulse border-2 border-[#111111] bg-[#ececec]" />
                   ))}
                 </div>
               </article>
             ))}
           </div>
-        ) : null}
+        ) : (
+          <div data-portfolio-grid className="grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:gap-6">
+            {projects.slice(0, showcaseLimit).map((project, idx) => (
+              <Link
+                data-portfolio-card
+                className="group relative block border-2 border-[#111111] bg-[#f6f6f3] p-3.5 no-underline shadow-[5px_5px_0_#9f9f9f] transition hover:-translate-y-1"
+                key={`${project.slug}-${idx}`}
+                to={`/projects/${project.slug}`}
+                aria-label={`Open ${project.title} details`}
+              >
+                <div className="relative aspect-16/10 overflow-hidden border-2 border-[#111111]">
+                  {project.imageUrl ? (
+                    <img
+                      src={project.imageUrl}
+                      alt={`${project.title} preview`}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : null}
+                  <div className={`absolute inset-0 ${toneClass[idx % toneClass.length]} opacity-100 transition-opacity duration-300 group-hover:opacity-0`} aria-hidden="true" />
+                </div>
+                <h3 className="mb-2 mt-3 font-['Syne'] text-[34px]">{project.title}</h3>
+                <p className="m-0 max-w-[28ch] text-[16px] text-[#2f2f2f]">
+                  {project.summary || 'Click to view project details and README summary'}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {(project.techStack || []).map((word) => (
+                    <span
+                      key={word}
+                      className="cursor-default border-2 border-[#111111] bg-[#111111] px-2 py-1 font-['Syne'] text-[12px] font-semibold tracking-[0.02em] text-white transition-all duration-200 hover:-translate-y-px hover:bg-[#9dff00] hover:text-[#111111] hover:shadow-[2px_2px_0_#111111]"
+                    >
+                      {word}
+                    </span>
+                  ))}
+                </div>
+                <span aria-hidden="true" className="absolute bottom-3.5 right-3.5 grid h-7 w-7 place-items-center bg-[#111111] text-[17px] text-white">
+                  ↗
+                </span>
+              </Link>
+            ))}
+          </div>
+        )}
 
         <div data-portfolio-grid className="grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:gap-6">
           {projects.slice(0, showcaseLimit).map((project, idx) => (
