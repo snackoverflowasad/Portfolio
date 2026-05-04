@@ -193,7 +193,7 @@ function AdminDashboardPage() {
   }, [messageSearch, messages]);
 
   const handleMarkMessageRead = async () => {
-     console.log("token:", token, "selectedMessageId:", selectedMessageId);
+    console.log("token:", token, "selectedMessageId:", selectedMessageId);
     if (!token || !selectedMessageId) return;
 
     try {
@@ -729,31 +729,32 @@ function AdminDashboardPage() {
                   <p className="text-sm">Loading messages...</p>
                 ) : null}
 
-                {!isMessagesLoading && filteredMessages.map((message) => (
-                  <button
-                    key={message.id}
-                    type="button"
-                    onClick={() => setSelectedMessageId(message.id)}
-                    className={`w-full border-2 border-[#111111] px-3 py-3 text-left shadow-[3px_3px_0_#111111] transition hover:-translate-y-px ${message.id === selectedMessageId ? "bg-[#ffdaef]" : "bg-[#f9f7ef]"}`}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="m-0 font-['Syne'] text-[17px] leading-none">
-                        {message.senderName}
+                {!isMessagesLoading &&
+                  filteredMessages.map((message) => (
+                    <button
+                      key={message.id}
+                      type="button"
+                      onClick={() => setSelectedMessageId(message.id)}
+                      className={`w-full border-2 border-[#111111] px-3 py-3 text-left shadow-[3px_3px_0_#111111] transition hover:-translate-y-px ${message.id === selectedMessageId ? "bg-[#ffdaef]" : "bg-[#f9f7ef]"}`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="m-0 font-['Syne'] text-[17px] leading-none">
+                          {message.senderName}
+                        </p>
+                        <span
+                          className={`border border-[#111111] px-1.5 py-0.5 text-[10px] font-extrabold uppercase tracking-[0.08em] ${message.status === "unread" ? "bg-[#9dff00]" : "bg-white"}`}
+                        >
+                          {message.status}
+                        </span>
+                      </div>
+                      <p className="m-0 mt-1 text-[12px] text-[#333]">
+                        {message.subject}
                       </p>
-                      <span
-                        className={`border border-[#111111] px-1.5 py-0.5 text-[10px] font-extrabold uppercase tracking-[0.08em] ${message.status === "unread" ? "bg-[#9dff00]" : "bg-white"}`}
-                      >
-                        {message.status}
-                      </span>
-                    </div>
-                    <p className="m-0 mt-1 text-[12px] text-[#333]">
-                      {message.subject}
-                    </p>
-                    <p className="m-0 mt-1 text-[11px] uppercase tracking-[0.08em] text-[#666]">
-                      {message.receivedAt}
-                    </p>
-                  </button>
-                ))}
+                      <p className="m-0 mt-1 text-[11px] uppercase tracking-[0.08em] text-[#666]">
+                        {message.receivedAt}
+                      </p>
+                    </button>
+                  ))}
 
                 {!isMessagesLoading && filteredMessages.length === 0 ? (
                   <p className="text-sm text-[#555]">
@@ -803,14 +804,14 @@ function AdminDashboardPage() {
                     </p>
                   </div>
 
-                  <div className="border-2 border-[#111111] bg-[#f9f7ef] px-3 py-2">
+                  {/* <div className="border-2 border-[#111111] bg-[#f9f7ef] px-3 py-2">
                     <p className="m-0 text-[11px] font-bold uppercase tracking-[0.1em] text-[#666]">
                       Subject
                     </p>
                     <p className="m-0 mt-1 font-['Syne'] text-[18px] leading-none">
                       {selectedMessage.subject}
                     </p>
-                  </div>
+                  </div> */}
 
                   <div className="border-2 border-[#111111] bg-[#f9f7ef] px-3 py-2.5">
                     <p className="m-0 text-[11px] font-bold uppercase tracking-[0.1em] text-[#666]">
