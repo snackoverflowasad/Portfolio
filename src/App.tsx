@@ -15,16 +15,12 @@ import Loader from './components/loader'
 
 function App() {
   const appRef = useRef<HTMLDivElement>(null)
-  const [isLoading, setIsLoading] = useState(() => {
-    // Only show loader if not seen before in this browser
-    return !window.localStorage.getItem('hasSeenLoader')
-  })
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!isLoading) return
     const timer = window.setTimeout(() => {
       setIsLoading(false)
-      window.localStorage.setItem('hasSeenLoader', 'true')
     }, 5500)
 
     return () => window.clearTimeout(timer)
