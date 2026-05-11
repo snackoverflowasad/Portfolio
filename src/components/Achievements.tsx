@@ -1,6 +1,7 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 
 import { motion } from "framer-motion";
+import { GitHubCalendar } from "react-github-calendar";
 
 function RoughUnderline({ children }: { children: ReactNode }) {
   return (
@@ -27,6 +28,9 @@ function RoughUnderline({ children }: { children: ReactNode }) {
 }
 
 function TestimonialsSection() {
+  const [totalContributions, setTotalContributions] = useState<number | null>(
+    null,
+  );
   const labels = [
     { label: "Rank Holder", tone: "bg-[#f5df75]/65" },
     { label: "Winner", tone: "bg-[#f3afe4]/60" },
@@ -176,6 +180,79 @@ function TestimonialsSection() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </div>
+        </div>
+
+        <div data-github-wall className="relative mt-8 p-6 sm:p-8">
+          <span
+            className="pointer-events-none absolute left-2 right-2 top-6 border-t border-[#111111]"
+            aria-hidden="true"
+          />
+          <span
+            className="pointer-events-none absolute left-2 right-2 bottom-6 border-t border-[#111111]"
+            aria-hidden="true"
+          />
+          <span
+            className="pointer-events-none absolute bottom-4 top-4 left-3 border-l border-[#111111]"
+            aria-hidden="true"
+          />
+          <span
+            className="pointer-events-none absolute bottom-4 top-4 right-3 border-l border-[#111111]"
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 px-3 py-10 md:px-6 md:py-12">
+            <h3 className="mb-6 font-['Syne'] text-[clamp(26px,7vw,40px)] leading-[1.05] tracking-[-0.03em] sm:mb-[30px]">
+              <span className="relative inline-block px-1.5">
+                <span
+                  className="absolute inset-0 -rotate-[2deg] bg-[#9dff00]/70 opacity-65 [clip-path:polygon(8%_18%,20%_6%,42%_10%,63%_4%,84%_14%,95%_34%,92%_58%,97%_79%,83%_93%,60%_88%,39%_96%,18%_88%,7%_68%,4%_45%)]"
+                  aria-hidden="true"
+                />
+                <span className="relative">GitHub Contributions</span>
+              </span>
+            </h3>
+
+            <div
+              className="overflow-x-auto border-2 border-dashed border-[#111111]/55 bg-white p-4 sm:p-5"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(to bottom, transparent 0, transparent 27px, #d8d8d8 27px, #d8d8d8 28px)",
+              }}
+            >
+              <div className="min-w-max pb-2">
+                <GitHubCalendar
+                  username="snackoverflowasad"
+                  colorScheme="light"
+                  theme={{
+                    light: [
+                      "#ebedf0",
+                      "#bbf7d0",
+                      "#4ade80",
+                      "#22c55e",
+                      "#16a34a",
+                    ],
+                  }}
+                  blockSize={14}
+                  blockMargin={5}
+                  fontSize={14}
+                  showTotalCount={false}
+                  transformData={(data) => {
+                    const total = data.reduce(
+                      (acc, activity) => acc + activity.count,
+                      0,
+                    );
+                    setTotalContributions(total);
+                    return data;
+                  }}
+                />
+              </div>
+              {totalContributions !== null && (
+                <div className=" font-['Caveat'] text-[22px] font-bold text-[#111111] sm:text-[26px]">
+                  <RoughUnderline>{totalContributions}</RoughUnderline> contributions
+                  in the last year
+                </div>
+              )}
             </div>
           </div>
         </div>
