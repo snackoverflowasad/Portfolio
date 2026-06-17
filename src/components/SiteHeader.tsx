@@ -10,7 +10,7 @@ const navItems = [
 ];
 
 const resumeDownloadUrl =
-  "https://drive.google.com/uc?export=download&id=1sB0WBMSeVFoC2y27WhNr7uYwwcENZ2-D";
+  "https://drive.google.com/uc?export=download&id=1o2FwNBN73zyDxRb5EUECGMEqj98fyePS";
 
 function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
